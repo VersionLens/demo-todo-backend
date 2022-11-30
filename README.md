@@ -13,7 +13,7 @@ Check out [demo-todo-frontend](https://github.com/VersionLens/demo-todo-frontend
 
 ## Installation
 
-Install dependences
+Install dependences:
 
 ```
 poetry install
