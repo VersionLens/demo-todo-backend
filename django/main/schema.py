@@ -14,4 +14,9 @@ class Mutation:
         todo = TodoModel.objects.create(title=title)
         return todo
 
+    @strawberry.mutation
+    def delete_todo(self, id: int) -> bool:
+        num_deleted, _ = TodoModel.objects.get(pk=id).delete()
+        return num_deleted == 1
+
 schema = strawberry.Schema(query=Query, mutation=Mutation)
