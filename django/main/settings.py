@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import re
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-5^gr^2qk_2fe^mh8wg+1-jsz#r=%)2-hl_#%*t3f4ntz3(1ov6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", ".svc.cluster.local"]
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", ".svc.cluster.local", ".versionlens.com"]
 
 
 # Application definition
@@ -132,5 +133,8 @@ STRAWBERRY_DJANGO = {
 }
 
 # CORS
-CORS_ORIGIN_ALLOW_ALL = True
-# TODO: Use CORS_ALLOWED_ORIGIN_REGEXES
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https?:\/\/.*" + re.escape(host.strip(".")) + r"(:[0-9]+)?$"
+    for host in ALLOWED_HOSTS
+]
+CORS_ALLOW_CREDENTIALS = True
